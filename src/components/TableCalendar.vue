@@ -3,7 +3,7 @@
     <vs-table max-items="20" pagination :data="users">
       <template slot="header">
         <h3>
-          Users
+          list
         </h3>
       </template>
       <template slot="thead">

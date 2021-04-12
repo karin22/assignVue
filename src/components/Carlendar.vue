@@ -22,7 +22,6 @@
               :class="attr.customData.class"
             >
               {{ attr.customData.title }}
-    
             </p>
           </div>
         </div>
@@ -47,12 +46,12 @@ export default {
           key: 1,
           customData: {
             title: "Lunch with mom.",
-           
+
             class: "bg-red-600 text-white",
           },
           dates: new Date(year, month, 1),
         },
-       
+
         {
           key: 2,
           customData: {
@@ -123,4 +122,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.vc-container.vc-is-expanded {
+  max-width: 100%;
+}
+</style>

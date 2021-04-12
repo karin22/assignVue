@@ -1,15 +1,17 @@
 <template>
   <div class="popup">
-    <vs-button color="danger" type="gradient" @click="popupActive = true"
-      >favorite</vs-button
+    <vs-button color="success" type="gradient" @click="popupActive = true"
+      >graph</vs-button
     >
-    <vs-popup
-      class="holamundo"
-      fullscreen
-      title="fullscreen"
-      :active.sync="popupActive"
-    >
-      <GChart type="LineChart" :data="chartData" :options="chartOptions" />
+    <vs-popup class="holamundo" title="grahp" :active.sync="popupActive">
+      <div>
+        <GChart
+          type="LineChart"
+          :data="chartData"
+          :options="chartOptions"
+          :resizeDebounce="500"
+        />
+      </div>
     </vs-popup>
   </div>
 </template>
@@ -25,44 +27,45 @@ export default {
   data() {
     return {
       popupActive: false,
-      chartData: [
-        ["Year", "Sales", "Expenses", "Profit"],
-        ["2014", 1000, 400, 200],
-        ["2015", 1170, 460, 250],
-        ["2016", 660, 1120, 300],
-        ["2017", 1030, 540, 350],
-      ],
       chartOptions: {
-        chart: {
-          title: "Company Performance",
-          subtitle: "Sales, Expenses, and Profit: 2014-2017",
+        width: 550,
+        height: 300,
+        hAxis: { textColor: "#ffffff" },
+        vAxis: {
+          scaleType: "log",
+          fontSize: 20,
         },
       },
+      chartData: {},
     };
   },
-  methods: {
-    fillData() {
-      this.datacollection = {
-        labels: [this.getRandomInt(), this.getRandomInt()],
-        datasets: [
-          {
-            label: "Data One",
-            backgroundColor: "#f87979",
-            data: [this.getRandomInt(), this.getRandomInt()],
-          },
-          {
-            label: "Data One",
-            backgroundColor: "#f87979",
-            data: [this.getRandomInt(), this.getRandomInt()],
-          },
-        ],
-      };
-    },
-    getRandomInt() {
-      return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
-    },
+  beforeCreate() {
+    this.$vs.loading({ color: "#7d0c3f" });
+  },
+  mounted() {
+    this.chartData = [["timestamp", "data"]];
+
+    this.axios
+      .get("https://swdapi.ddns.net:8090/data/ttntest")
+      .then((response) => {
+        if (response) {
+          this.$vs.loading.close();
+        }
+
+        for (let index = 1; index <= response.data.length; index++) {
+          this.chartData.push([
+            response.data[index].timestamp,
+            response.data[index].data,
+          ]);
+        }
+      });
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.popup {
+  display: flex;
+  justify-content: flex-end;
+}
+</style>

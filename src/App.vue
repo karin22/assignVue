@@ -9,18 +9,20 @@
         class="table-calendar"
       >
         <vs-card>
-          <vs-button color="danger" type="gradient" @click="active = true"
-            >list</vs-button
-          >
-          <vs-button color="danger" type="gradient" @click="active = false"
-            >calendar</vs-button
-          >
-          <popup-graph :popupActive="false" />
-          <div slot="header">
-            <h3>
-              Hello world !
-            </h3>
+          <div class="btn-view">
+            <vs-button
+              color="danger"
+              type="gradient"
+              @click="active = true"
+              class="btn-list"
+              >list</vs-button
+            >
+            <vs-button color="danger" type="gradient" @click="active = false"
+              >calendar</vs-button
+            >
           </div>
+          <popup-graph :popupActive="false" />
+          <div slot="header"></div>
           <div>
             <table-calendar v-if="active" />
 
@@ -43,6 +45,11 @@ export default {
   data: () => ({
     active: true,
   }),
+  methods: {
+    popupAction(value) {
+      console.log(value);
+    },
+  },
 };
 </script>
 
@@ -64,5 +71,11 @@ export default {
 }
 .table-calendar {
   padding: 0px 20px;
+}
+.btn-view {
+  display: flex;
+}
+.btn-list {
+  margin-right: 10px;
 }
 </style>
