@@ -7,17 +7,14 @@
         </h3>
       </template>
       <template slot="thead">
-        <vs-th>
+        <vs-th class="header-table">
           ID
         </vs-th>
-        <vs-th>
+        <vs-th class="header-table">
           data
         </vs-th>
-        <vs-th>
+        <vs-th class="header-table">
           timestamp
-        </vs-th>
-        <vs-th>
-          data2
         </vs-th>
       </template>
 
@@ -33,10 +30,6 @@
 
           <vs-td :data="data[index].timestamp">
             {{ data[index].timestamp }}
-          </vs-td>
-
-          <vs-td :data="data[index].data2">
-            {{ data[index].data2 }}
           </vs-td>
         </vs-tr>
       </template>
@@ -66,4 +59,7 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.header-table {
+}
+</style>

@@ -52,7 +52,7 @@ export default {
           this.$vs.loading.close();
         }
 
-        for (let index = 1; index <= response.data.length; index++) {
+        for (let index = 1; index < response.data.length; index++) {
           this.chartData.push([
             response.data[index].timestamp,
             response.data[index].data,
